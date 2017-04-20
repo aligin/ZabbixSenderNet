@@ -10,6 +10,7 @@ namespace ZabbixSenderNet.Test
     {
         static void Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
             try
             {
                 string zabbixIp = "10.120.50.10";
@@ -22,7 +23,7 @@ namespace ZabbixSenderNet.Test
                 ZabbixSender sender = new ZabbixSender(zabbixIp, zabbixPort);
 
                 //This is when we send ourvalue "0" to zabbix
-                var result = sender.Send(host, key, "0");
+                var result = sender.Send(host, key, "0").GetAwaiter().GetResult();
 
                 Console.WriteLine("success : {0}, processed : {1}, failed : {2}, total : {3}, seconds: {4}",
                     result.IsSuccess,
@@ -39,7 +40,6 @@ namespace ZabbixSenderNet.Test
             {
                 Console.ReadKey();
             }
-
         }
     }
 }
